@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MatrículaPro – Sistema de Matrícula</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <!-- LOGOTIPO (SVG) -->
+    <svg width="40" height="40" viewBox="0 0 64 64" aria-label="Logo MatrículaPro">
+      <rect width="64" height="64" rx="16" fill="#2457d6"/>
+      <path d="M32 14 8 26l24 12 24-12z" fill="#fff"/>
+      <path d="M18 33v10c0 4 6.5 8 14 8s14-4 14-8V33l-14 7z" fill="#f5a524"/>
+      <rect x="52" y="27" width="3" height="16" rx="1.5" fill="#fff"/>
+    </svg>
+    MatrículaPro
+  </div>
+  <!-- MENÚ DE NAVEGACIÓN -->
+  <nav id="menu">
+    <button data-s="inicio" class="on">Inicio</button>
+    <button data-s="proyecto">Proyecto</button>
+    <button data-s="estudiantes">Estudiantes</button>
+    <button data-s="cursos">Cursos</button>
+    <button data-s="matriculas">Matrículas</button>
+    <button data-s="respaldo">Respaldo</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- PÁGINA DE INICIO -->
+<section id="inicio" class="on">
+  <div class="hero">
+    <div>
+      <h1>Sistema de Matrícula</h1>
+      <p>Registra estudiantes y cursos, matricula con control de cupos y protege tu información con respaldos.</p>
+      <button class="btn" onclick="ir('estudiantes')">Comenzar</button>
+    </div>
+    <!-- Ilustración (SVG) -->
+    <svg viewBox="0 0 320 220" role="img" aria-label="Ilustración de estudiantes">
+      <rect x="20" y="150" width="280" height="14" rx="7" fill="#fff" opacity=".25"/>
+      <rect x="50" y="40" width="130" height="95" rx="10" fill="#fff"/>
+      <rect x="64" y="56" width="70" height="8" rx="4" fill="#2457d6"/>
+      <rect x="64" y="74" width="100" height="6" rx="3" fill="#cdd7f3"/>
+      <rect x="64" y="88" width="90" height="6" rx="3" fill="#cdd7f3"/>
+      <rect x="64" y="102" width="60" height="6" rx="3" fill="#cdd7f3"/>
+      <circle cx="235" cy="70" r="26" fill="#f5a524"/>
+      <path d="M200 140c0-24 15-40 35-40s35 16 35 40z" fill="#fff"/>
+      <path d="M215 52l20-10 20 10-20 10z" fill="#1b2438"/>
+      <circle cx="270" cy="30" r="7" fill="#fff" opacity=".5"/>
+      <circle cx="35" cy="95" r="5" fill="#fff" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="card"><h2>Últimas matrículas</h2><div class="tw" id="ultimas"></div></div>
+</section>
+
+<!-- INFORMACIÓN DEL PROYECTO -->
+<section id="proyecto">
+  <h2>Información del proyecto</h2>
+  <div class="info">
+    <div class="card"><h3>Objetivo</h3><p>Gestionar el registro de estudiantes y cursos, y administrar las matrículas de forma ordenada, evitando duplicados y sobrecupo.</p></div>
+    <div class="card"><h3>Funciones</h3><ul><li>Crear registros</li><li>Consultar y buscar</li><li>Modificar información</li><li>Eliminar registros</li><li>Respaldo y restauración</li></ul></div>
+    <div class="card"><h3>Conceptos de programación</h3><ul><li>Variables y tipos de datos</li><li>Operadores</li><li>Entrada y salida de datos</li><li>Condicionales y ciclos</li><li>Funciones</li></ul></div>
+    <div class="card"><h3>Tecnologías</h3><p>HTML5, CSS3 y JavaScript. Los datos se guardan en el navegador (localStorage).</p></div>
+  </div>
+</section>
+
+<!-- ESTUDIANTES -->
+<section id="estudiantes">
+  <h2>Estudiantes</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 id="tEst" style="margin-top:0">Nuevo estudiante</h3>
+      <input type="hidden" id="eEdit">
+      <label>Documento / carné</label><input id="eId" placeholder="Ej. 0612345-6">
+      <label>Nombre completo</label><input id="eNom">
+      <label>Correo electrónico</label><input id="eMail" type="email">
+      <label>Edad</label><input id="eEdad" type="number" min="1">
+      <label>Carrera</label>
+      <select id="eCar">
+        <option>Ingeniería</option><option>Administración</option><option>Medicina</option><option>Derecho</option><option>Educación</option>
+      </select>
+      <div class="row">
+        <button class="btn" id="eGuardar">Guardar</button>
+        <button class="btn sec" id="eCancel">Limpiar</button>
+      </div>
+    </div>
+    <div class="card">
+      <input id="eBuscar" placeholder="🔍 Buscar por nombre, documento o carrera...">
+      <div class="tw" style="margin-top:10px" id="tablaEst"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CURSOS -->
+<section id="cursos">
+  <h2>Cursos</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 id="tCur" style="margin-top:0">Nuevo curso</h3>
+      <input type="hidden" id="cEdit">
+      <label>Código</label><input id="cCod" placeholder="Ej. MAT101">
+      <label>Nombre del curso</label><input id="cNom">
+      <label>Docente</label><input id="cDoc">
+      <label>Créditos</label><input id="cCre" type="number" min="1" max="10" value="3">
+      <label>Cupo máximo</label><input id="cCupo" type="number" min="1" value="30">
+      <div class="row">
+        <button class="btn" id="cGuardar">Guardar</button>
+        <button class="btn sec" id="cCancel">Limpiar</button>
+      </div>
+    </div>
+    <div class="card">
+      <input id="cBuscar" placeholder="🔍 Buscar curso o docente...">
+      <div class="tw" style="margin-top:10px" id="tablaCur"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MATRÍCULAS -->
+<section id="matriculas">
+  <h2>Matrículas</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Matricular estudiante</h3>
+      <label>Estudiante</label><select id="mEst"></select>
+      <label>Curso</label><select id="mCur"></select>
+      <div class="row"><button class="btn" id="mGuardar">Matricular</button></div>
+    </div>
+    <div class="card"><div class="tw" id="tablaMat"></div></div>
+  </div>
+</section>
+
+<!-- RESPALDO -->
+<section id="respaldo">
+  <h2>Respaldo de la información</h2>
+  <div class="card">
+    <p>Genera una copia de todos los datos (JSON). Cópiala y guárdala en un archivo. Para restaurar, pega el contenido y presiona «Restaurar».</p>
+    <textarea id="bkTxt" rows="10" placeholder="Aquí aparecerá el respaldo..."></textarea>
+    <div class="row">
+      <button class="btn" id="bkGen">Generar respaldo</button>
+      <button class="btn sec" id="bkCopy">Copiar</button>
+      <button class="btn" id="bkRes" style="background:var(--ok)">Restaurar</button>
+      <button class="btn bad" id="bkDel">Borrar todo</button>
+    </div>
+    <p id="bkInfo" style="color:var(--mut)"></p>
+  </div>
+</section>
+
+</main>
+
+<footer>MatrículaPro · Proyecto académico</footer>
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
